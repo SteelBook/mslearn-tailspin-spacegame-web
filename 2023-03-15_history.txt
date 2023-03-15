@@ -1,0 +1,55 @@
+
+  498  sshgen -f 2023-03-07_gitlab-SteelBookLab
+  499  git checkout main
+  500  git pull origin main
+  501  git checkout -B code-workflow
+  502  git branch
+  503  git pull origin2 main
+  504  git pull main
+  505  git pull
+  506  git add azure-pipelines.yml 
+  507  git commit -m "(Tutorial) Add the build configuration"
+  508  git push origin code-workflow 
+  509  dotnet build --configuration Release
+  510  dotnet run --configuration Release --no-build --project Tailspin.SpaceGame.Web
+  511  dotnet dev-certs https --trust
+  512  dotnet run --configuration Release --no-build --project Tailspin.SpaceGame.Web
+  513  git checkout -B feature/home-page-text
+  514  dotnet build --configuration Release
+  515  dotnet run --configuration Release --no-build --project Tailspin.SpaceGame.Web
+  516  git commit -m "Improve the text at the top of the home page"
+  517  git checkout -B bugfix/home-page-typo
+  518  git fetch upstream unit-tests
+  519  git checkout -B unit-tests upstream/unit-tests
+  520  dotnet build --configuration Release
+  521  dotnet test --configuration Release --no-build
+  522  dotnet test Tailspin.SpaceGame.Web.Tests --configuration Release --no-build --logger trx
+  523  git add azure-pipelines.yml
+  524  git commit -m "Run and publish unit tests"
+  525  git push origin unit-tests
+  526  dotnet new tool-manifest
+  527  dotnet tool install dotnet-reportgenerator-globaltool
+  528  dotnet add Tailspin.SpaceGame.Web.Tests package coverlet.msbuild
+  529  dotnet test --no-build   --configuration Release   /p:CollectCoverage=true   /p:CoverletOutputFormat=cobertura   /p:CoverletOutput=./TestResults/Coverage/
+  530  dotnet test --no-build   --configuration Release   /p:CollectCoverage=true   /p:CoverletOutputFormat=cobertura   /p:CoverletOutput=./TestResults/Coverage/
+  531  dotnet test --no-build   --configuration Release 
+  532  dotnet test --no-build   --configuration Release   /p:CollectCoverage=true 
+  533  dotnet test help
+  534  dotnet help
+  535  dotnet help test
+  536  dotnet test --no-build   --configuration Release  -- /p:CollectCoverage=true 
+  537  dotnet test --no-build   --configuration Release --  /p:CollectCoverage=true   /p:CoverletOutputFormat=cobertura   /p:CoverletOutput=./TestResults/Coverage/
+  538  dotnet test --no-build   --configuration Release  -- CollectCoverage=true 
+  539  dotnet test --no-build   --configuration Release -- CollectCoverage=true  CoverletOutputFormat=cobertura  CoverletOutput=./TestResults/Coverage/
+  540  MSYS2_ARG_CONV_EXCL="*" dotnet test --no-build   --configuration Release   /p:CollectCoverage=true   /p:CoverletOutputFormat=cobertura   /p:CoverletOutput=./TestResults/Coverage/
+  541  dotnet tool run reportgenerator   -reports:./Tailspin.SpaceGame.Web.Tests/TestResults/Coverage/coverage.cobertura.xml   -targetdir:./CodeCoverage   -reporttypes:HtmlInline_AzurePipelines
+  542  git checkout -B code-coverage
+  543  git add Tailspin.SpaceGame.Web.Tests/Tailspin.SpaceGame.Web.Tests.csproj
+  544  git commit -m "Add coverlet.msbuild package"
+  545  git add .config/dotnet-tools.json
+  546  git commit -m "Add code coverage"
+  547  git add azure-pipelines.yml
+  548  git commit -m "Add code coverage"
+  549  git push origin code-coverage
+  550  rm -rf CodeCoverage/
+  551  history > 2023-03-15_history.txt
